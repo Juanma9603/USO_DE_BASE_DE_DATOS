@@ -385,7 +385,7 @@ public class Main {
                                 case 1:
                                     try {
                                         System.out.println("Consultar");
-                                        System.out.println("Indica el ID del Prestamo a consultar");
+                                        System.out.println("Indica el ID a consultar");
                                         Prestamo objPrestamoCon= PrestamoDAO.Consultar(scanner.nextInt());
                                         System.out.println(objPrestamoCon.toString());
                                     } catch (Exception e) {
