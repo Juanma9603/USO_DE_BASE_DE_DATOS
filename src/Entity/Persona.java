@@ -2,7 +2,7 @@ package Entity;
 
 public class Persona {
     private int ID;
-    private int Id_Ubicacion;
+    private Ubicacion objubicacion;
     private String Firstname;
     private String Lastname;
     private String Birthday;
@@ -12,7 +12,7 @@ public class Persona {
 
     public Persona() {
         this.ID = 0;
-        this.Id_Ubicacion = 0;
+        this.objubicacion = new Ubicacion();
         this.Firstname = "";
         this.Lastname = "";
         this.Birthday = "";
@@ -21,10 +21,10 @@ public class Persona {
         this.Register_date = "";
     }
 
-    public Persona(int ID, int id_Ubicacion, String firstname, String lastname, String birthday,
+    public Persona(int ID, Ubicacion objubicacion, String firstname, String lastname, String birthday,
                    String carrera, int ciclo, String register_date) {
         this.ID = ID;
-        this.Id_Ubicacion = id_Ubicacion;
+        this.objubicacion = objubicacion;
         this.Firstname = firstname;
         this.Lastname = lastname;
         this.Birthday = birthday;
@@ -41,12 +41,12 @@ public class Persona {
         this.ID = ID;
     }
 
-    public int getId_Ubicacion() {
-        return Id_Ubicacion;
+    public Ubicacion getobjubicacion() {
+        return objubicacion;
     }
 
-    public void setId_Ubicacion(int id_Ubicacion) {
-        this.Id_Ubicacion = id_Ubicacion;
+    public void setObjubicacion(Ubicacion objubicacion) {
+        this.objubicacion = objubicacion;
     }
 
     public String getFirstname() {
@@ -101,7 +101,7 @@ public class Persona {
     public String toString() {
         return "Persona{" +
                 "ID=" + ID +
-                ", Id_Ubicacion=" + Id_Ubicacion +
+                "," + objubicacion +
                 ", Firstname='" + Firstname + '\'' +
                 ", Lastname='" + Lastname + '\'' +
                 ", Birthday='" + Birthday + '\'' +

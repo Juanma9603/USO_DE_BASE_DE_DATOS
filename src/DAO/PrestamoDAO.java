@@ -1,7 +1,9 @@
 package DAO;
 
+import Entity.DetallePrestamo;
 import Entity.Persona;
 import Entity.Prestamo;
+import Entity.Usuario;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,8 +24,8 @@ public class PrestamoDAO {
             if (rs.next()){
                 objprestamo=new Prestamo(
                         rs.getInt("Id_Prestamo"),
-                        rs.getInt("Id_Usuario"),
-                        rs.getString("Date_prestamo")
+                        new Usuario(rs.getInt("Id_Usuario"),new Persona(),"","",""),
+                        rs.getString("Date_prestamo"),new ArrayList<>()
                 );
             }
         }catch (Exception e){
@@ -34,23 +36,40 @@ public class PrestamoDAO {
         return objprestamo;
     }
 
-    public void Registrar(Prestamo objprestamo){
+    public ArrayList<DetallePrestamo> getlistdetallePrestamo(Prestamo objprestamo) throws Exception{
+        ArrayList<DetallePrestamo> lisDetallePrestamo =new ArrayList<>();
+        //boolean bandera;
+        //int j=6;
         try {
-            String sql="CALL sp_prestamo_insert (?);";
-            PreparedStatement ps=con.getCon().prepareStatement(sql);
-            ps.setInt(1,objprestamo.getId_Usuario());
+            String sql="CALL sp_registroPrestamo(?,?,?,?,?,?)";
+            PreparedStatement ps =con.getCon().prepareStatement(sql);
+            ps.setInt(1,objprestamo.getobjusuario().getID());
+            ps.setInt(2,objprestamo.getListdetalle().get(0).getObjlibro().getID());
+            int sizeLst = objprestamo.getListdetalle().size();
+            int pendiente = 5-sizeLst;
+            System.out.println("Size: "+sizeLst);
+            System.out.println("Pendiete: "+pendiente);
+            for(int i=1;i<sizeLst;i++){
+                ps.setInt((i+2),objprestamo.getListdetalle().get(i).getObjlibro().getID());
+                System.out.println("indice: "+(i+2)+" - IDLibro: "+objprestamo.getListdetalle().get(i).getObjlibro().getID());
+            }
+            for (int j=1;j<=pendiente;j++){
+                ps.setInt((j+sizeLst+1),0);
+                System.out.println("indice: "+(j+sizeLst+1)+" - IDLibro: 0");
+            }
             ps.execute();
-        }catch (SQLException e){
-            System.out.println("SQL ERROR"+e);
+        }catch (SQLException err){
+            System.out.println("SQL ERROR: "+ err);
         }
+        return lisDetallePrestamo;
     }
 
     public void Modificar(Prestamo objprestamo){
         try {
-            String sql="CALL sp_prestamo_update(?,?);";
+            String sql="CALL sp_prestamoUPDATE (?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objprestamo.getID());
-            ps.setInt(2, objprestamo.getId_Usuario());
+            ps.setInt(2, objprestamo.getobjusuario().getID());
             ps.executeUpdate();
         }catch (SQLException e){
             System.out.println("SQL ERROR"+e);
@@ -59,7 +78,7 @@ public class PrestamoDAO {
 
     public void Eliminar(int ID){
         try {
-            String sql="CALL sp_prestamo_delete(?);";
+            String sql="CALL sp_prestamoDELETE(?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,ID);
             ps.executeUpdate();
@@ -76,13 +95,13 @@ public class PrestamoDAO {
             while (rs.next()){
                     Prestamo objTmpPrestamo=new Prestamo(
                             rs.getInt(1),
-                            rs.getInt(2),
-                            rs.getString(3)
+                            new Usuario(rs.getInt("Id_Usuario"),new Persona(),"","",""),
+                            rs.getString(3),new ArrayList<>()
                     );
                     listPrestamo.add(objTmpPrestamo);
             }
         }catch (SQLException err){
-            System.out.println("SQL ERROR"+err);
+            System.out.println("SQL ERROR: "+err);
         }finally {
             con.getCon().close();
         }

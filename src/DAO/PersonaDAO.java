@@ -2,6 +2,7 @@ package DAO;
 
 import Entity.Libro;
 import Entity.Persona;
+import Entity.Ubicacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class PersonaDAO {
             if (rs.next()){
                 objpersona =new Persona(
                         rs.getInt("Id_Persona"),
-                        rs.getInt("Id_Ubicacion"),
+                        new Ubicacion(rs.getInt("Id_Ubicacion"),"","",""),
                         rs.getString("FirstName"),
                         rs.getString("LastName"),
                         rs.getString("Birthday"),
@@ -38,9 +39,9 @@ public class PersonaDAO {
     }
     public void Registrar(Persona objpersona){
         try {
-            String sql="CALL sp_persona_insert (?,?,?,?,?,?);";
+            String sql="CALL sp_personaINSERT (?,?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
-            ps.setInt(1,objpersona.getId_Ubicacion());
+            ps.setInt(1,objpersona.getobjubicacion().getID());
             ps.setString(2,objpersona.getFirstname());
             ps.setString(3, objpersona.getLastname());
             ps.setString(4,objpersona.getBirthday());
@@ -54,10 +55,10 @@ public class PersonaDAO {
 
     public void Modificar(Persona objpersona){
         try {
-            String sql="CALL sp_persona_update(?,?,?,?,?,?,?);";
+            String sql="CALL sp_personaUPDATE(?,?,?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objpersona.getID());
-            ps.setInt(2,objpersona.getId_Ubicacion());
+            ps.setInt(2,objpersona.getobjubicacion().getID());
             ps.setString(3,objpersona.getFirstname());
             ps.setString(4, objpersona.getLastname());
             ps.setString(5,objpersona.getBirthday());
@@ -71,7 +72,7 @@ public class PersonaDAO {
 
     public void Eliminar(int ID){
         try {
-            String sql="CALL sp_persona_delete(?);";
+            String sql="CALL sp_personaDELETE (?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,ID);
             ps.executeUpdate();
@@ -88,7 +89,7 @@ public class PersonaDAO {
             while (rs.next()){
                 Persona objTmpPersona=new Persona(
                         rs.getInt(1),
-                        rs.getInt(2),
+                        new Ubicacion(rs.getInt("Id_Ubicacion"),"","",""),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),

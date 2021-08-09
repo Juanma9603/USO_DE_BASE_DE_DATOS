@@ -1,20 +1,26 @@
 package Entity;
 
+import java.util.ArrayList;
+
 public class Prestamo {
     private int ID;
-    private int Id_Usuario;
+    private Usuario objusuario;
+    private ArrayList<DetallePrestamo> listdetalle;
     private String Date_prestamo;
 
     public Prestamo() {
         this.ID = 0;
-        this.Id_Usuario = 0;
+        this.objusuario = new Usuario();
         this.Date_prestamo = "";
+        this.listdetalle= new ArrayList<>();
     }
 
-    public Prestamo(int ID, int id_Usuario, String date_prestamo) {
+
+    public Prestamo(int ID, Usuario objusuario, String date_prestamo,ArrayList<DetallePrestamo> listdetalle) {
         this.ID = ID;
-        this.Id_Usuario = id_Usuario;
+        this.objusuario = objusuario;
         this.Date_prestamo = date_prestamo;
+        this.listdetalle= listdetalle;
     }
 
     public int getID() {
@@ -25,12 +31,12 @@ public class Prestamo {
         this.ID = ID;
     }
 
-    public int getId_Usuario() {
-        return Id_Usuario;
+    public Usuario getobjusuario() {
+        return objusuario;
     }
 
-    public void setId_Usuario(int id_Usuario) {
-        this.Id_Usuario = id_Usuario;
+    public void setObjusuario(Usuario objusuario) {
+        this.objusuario = objusuario;
     }
 
     public String getDate_prestamo() {
@@ -41,11 +47,20 @@ public class Prestamo {
         this.Date_prestamo = date_prestamo;
     }
 
+    public ArrayList<DetallePrestamo> getListdetalle() {
+        return listdetalle;
+    }
+
+    public void setListdetalle(ArrayList<DetallePrestamo> listdetalle) {
+        this.listdetalle = listdetalle;
+    }
+
     @Override
     public String toString() {
         return "Prestamo{" +
                 "ID=" + ID +
-                ", Id_Usuario=" + Id_Usuario +
+                ", objusuario=" + objusuario +
+                ", listdetalle=" + listdetalle +
                 ", Date_prestamo='" + Date_prestamo + '\'' +
                 '}';
     }

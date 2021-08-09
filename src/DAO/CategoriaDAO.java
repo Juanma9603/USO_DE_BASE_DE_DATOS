@@ -59,7 +59,7 @@ public class CategoriaDAO {
 
     public void Registrar(Categoria objcategoria){
         try {
-            String sql="CALL sp_categoria (?,?);";
+            String sql="CALL sp_categoriaINSERT (?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setString(1,objcategoria.getNombre());
             ps.setString(2, objcategoria.getTipo());
@@ -72,7 +72,7 @@ public class CategoriaDAO {
 
     public void Modificar(Categoria objcategoria){
         try {
-            String sql="CALL sp_categoria_update (?,?,?);";
+            String sql="CALL sp_categoriaUPDATE (?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objcategoria.getID());
             ps.setString(2,objcategoria.getNombre());
@@ -86,7 +86,7 @@ public class CategoriaDAO {
 
     public void Eliminar(int ID){
         try {
-            String sql="CALL sp_categoria_delete (?);";
+            String sql="CALL sp_categoriaDELETE (?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,ID);
             ps.execute();

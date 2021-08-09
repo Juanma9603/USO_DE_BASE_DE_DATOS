@@ -2,7 +2,7 @@ package Entity;
 
 public class Libro {
     private int ID;
-    private int ID_Categoria;
+    private Categoria objcategoria;
     private String Title;
     private String Author;
     private String Editorial;
@@ -11,7 +11,7 @@ public class Libro {
 
     public Libro(){
         this.ID=0;
-        this.ID_Categoria=0;
+        this.objcategoria=new Categoria();
         this.Title="";
         this.Author="";
         this.Editorial="";
@@ -19,9 +19,9 @@ public class Libro {
         this.Tema="";
     }
 
-    public Libro(int ID,int ID_Categoria,String Title,String Author,String Editorial,int Volumen,String Tema){
+    public Libro(int ID,Categoria objcategoria,String Title,String Author,String Editorial,int Volumen,String Tema){
         this.ID=ID;
-        this.ID_Categoria=ID_Categoria;
+        this.objcategoria=objcategoria;
         this.Title=Title;
         this.Author=Author;
         this.Editorial=Editorial;
@@ -38,12 +38,12 @@ public class Libro {
         this.ID = ID;
     }
 
-    public int getID_Categoria() {
-        return ID_Categoria;
+    public Categoria getobjcategoria() {
+        return objcategoria;
     }
 
-    public void setID_Categoria(int ID_Categoria) {
-        this.ID_Categoria = ID_Categoria;
+    public void setObjcategoria(Categoria objcategoria) {
+        this.objcategoria = objcategoria;
     }
 
     public String getTitle() {
@@ -90,7 +90,7 @@ public class Libro {
     public String toString() {
         return "Libro{" +
                 "ID=" + ID +
-                ", ID_Categoria=" + ID_Categoria +
+                "," + objcategoria +
                 ", Title='" + Title + '\'' +
                 ", Author='" + Author + '\'' +
                 ", Editorial='" + Editorial + '\'' +

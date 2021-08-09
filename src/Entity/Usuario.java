@@ -2,22 +2,22 @@ package Entity;
 
 public class Usuario {
     private int ID;
-    private int Id_Persona;
+    private Persona objpersona;
     private String Email;
     private String Nickname;
     private String Contraseña;
 
     public Usuario() {
         this.ID = 0;
-        Id_Persona = 0;
+        objpersona = new Persona();
         Email = "";
         Nickname = "";
         Contraseña = "";
     }
 
-    public Usuario(int ID, int id_Persona, String email, String nickname, String contraseña) {
+    public Usuario(int ID, Persona objpersona, String email, String nickname, String contraseña) {
         this.ID = ID;
-        this.Id_Persona = id_Persona;
+        this.objpersona = objpersona;
         this.Email = email;
         this.Nickname = nickname;
         this.Contraseña = contraseña;
@@ -31,12 +31,12 @@ public class Usuario {
         this.ID = ID;
     }
 
-    public int getId_Persona() {
-        return Id_Persona;
+    public Persona getobjpersona() {
+        return objpersona;
     }
 
-    public void setId_Persona(int id_Persona) {
-        this.Id_Persona = id_Persona;
+    public void setObjpersona(Persona objpersona) {
+        this.objpersona = objpersona;
     }
 
     public String getEmail() {
@@ -67,7 +67,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "ID=" + ID +
-                ", Id_Persona=" + Id_Persona +
+                ", " + objpersona +
                 ", Email='" + Email + '\'' +
                 ", Nickname='" + Nickname + '\'' +
                 ", Contraseña='" + Contraseña + '\'' +

@@ -19,6 +19,8 @@ public class Main {
         PrestamoDAO PrestamoDAO;
         Usuario objusuario = new Usuario();
         UsuarioDAO UsuarioDAO;
+        DetallePrestamo objDetalle=new DetallePrestamo();
+        DetallePrestamoDAO DetallePrestamoDAO;
         Conexion Conexion = new Conexion();
         boolean iniciar = true;
 
@@ -219,7 +221,7 @@ public class Main {
                                     objlibro = new Libro();
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID Categoria del Libro");
-                                    objlibro.setID_Categoria(scanner.nextInt());
+                                    objlibro.setObjcategoria(new Categoria(scanner.nextInt(),"",""));
                                     System.out.println("Indica el Titulo del Libro");
                                     objlibro.setTitle(scanner.next());
                                     System.out.println("Indica el Autor del Libro");
@@ -240,7 +242,7 @@ public class Main {
                                     System.out.println("Indica el ID");
                                     objlibro.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Categoria del Libro");
-                                    objlibro.setID_Categoria(scanner.nextInt());
+                                    objlibro.setObjcategoria(new Categoria(scanner.nextInt(),"",""));
                                     System.out.println("Indica el Titulo del Libro");
                                     objlibro.setTitle(scanner.next());
                                     System.out.println("Indica el Autor del Libro");
@@ -306,7 +308,7 @@ public class Main {
                                     objpersona = new Persona();
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID Ubicacion de la Persona");
-                                    objpersona.setId_Ubicacion(scanner.nextInt());
+                                    objpersona.setObjubicacion(new Ubicacion(scanner.nextInt(),"","",""));
                                     System.out.println("Indica el Nombre de la Persona");
                                     objpersona.setFirstname(scanner.next());
                                     System.out.println("Indica el Apellido de la Persona");
@@ -328,7 +330,7 @@ public class Main {
                                     System.out.println("Indica el ID de la Persona");
                                     objpersona.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Ubicacion de la Persona");
-                                    objpersona.setId_Ubicacion(scanner.nextInt());
+                                    objpersona.setObjubicacion(new Ubicacion(scanner.nextInt(),"","",""));
                                     System.out.println("Indica el Nombre de la Persona");
                                     objpersona.setFirstname(scanner.next());
                                     System.out.println("Indica el Apellido de la Persona");
@@ -365,9 +367,6 @@ public class Main {
                                     break;
                             }
                             break;
-                        case 5:
-                            System.out.println("Detalle Prestamo");
-                            break;
 
                         case 6:
                             System.out.println("Prestamo");
@@ -377,6 +376,7 @@ public class Main {
                             System.out.println("4.Eliminar Prestamo");
                             System.out.println("5.Listar Prestamo");
                             PrestamoDAO =new PrestamoDAO();
+                            DetallePrestamoDAO objDetallePrestamoDAO=new DetallePrestamoDAO();
 
 
                             int option6 = scanner.nextInt();
@@ -386,21 +386,69 @@ public class Main {
                                     try {
                                         System.out.println("Consultar");
                                         System.out.println("Indica el ID a consultar");
-                                        Prestamo objPrestamoCon= PrestamoDAO.Consultar(scanner.nextInt());
-                                        System.out.println(objPrestamoCon.toString());
+                                        ArrayList<DetallePrestamo> listadetallePrestamo= objDetallePrestamoDAO.getGetDetallePrestamo(scanner.nextInt());
+                                        for(int i=0; i<listadetallePrestamo.size();i++){
+                                            System.out.println(i+1+"\t"+listadetallePrestamo.get(i).getObjlibro().getTitle().toString());
+                                        }
                                     } catch (Exception e) {
                                         System.out.println("Error " + e);
                                     }
 
                                     break;
                                 case 2:
-                                    objprestamo = new Prestamo();
-                                    System.out.println("Registrar");
-                                    System.out.println("Indica el ID del Usuario");
-                                    objprestamo.setId_Usuario(scanner.nextInt());
+                                    try {
+                                        int registra= 0;
+                                        boolean seguir=true;
+                                        System.out.println("Registrar");
+                                        System.out.println("Indica el ID del Usuario");
+                                        objprestamo.setObjusuario(new Usuario(scanner.nextInt(),new Persona(),"","",""));
+                                        System.out.println("Listar de Libros");
+                                        ArrayList<Libro> listLibro=new LibroDAO().list();
+                                        for (int i=0; i<listLibro.size();i++){
+                                            System.out.println(listLibro.get(i).toString());
+                                        }
+                                        ArrayList<DetallePrestamo> lstTmpDetallePrestamo = new ArrayList<DetallePrestamo>();
+                                        while (seguir){
+
+                                                System.out.println("Indica el ID del Libro");
+
+                                                lstTmpDetallePrestamo.add(
+                                                        new DetallePrestamo(
+                                                                0,
+                                                                new Libro(
+                                                                        scanner.nextInt(),
+                                                                        new Categoria(),
+                                                                        "",
+                                                                        "",
+                                                                        "",
+                                                                        0,
+                                                                        ""
+                                                                ),
+                                                                new Prestamo()
+                                                        ));
+
+                                                objprestamo.setListdetalle(lstTmpDetallePrestamo);
 
 
-                                    PrestamoDAO.Registrar(objprestamo);
+                                                System.out.println("Agregar mas libros");
+                                                System.out.println("1.Si");
+                                                System.out.println("2.No");
+                                                registra=scanner.nextInt();
+                                                if (registra==1){
+                                                }else{
+                                                    PrestamoDAO.getlistdetallePrestamo(objprestamo);
+                                                    seguir=false;
+                                                }
+                                        }
+
+                                    }catch (Exception e){
+                                        System.out.println("ERROR: "+e);
+                                    }
+                                    objDetalle = new DetallePrestamo();
+
+
+
+
 
                                     break;
                                 case 3:
@@ -409,7 +457,7 @@ public class Main {
                                     System.out.println("Indica el ID");
                                     objprestamo.setID(scanner.nextInt());
                                     System.out.println("Indica el ID del Usuario");
-                                    objprestamo.setId_Usuario(scanner.nextInt());
+                                    objprestamo.setObjusuario(new Usuario(scanner.nextInt(),new Persona(),"","",""));
 
                                     PrestamoDAO.Modificar(objprestamo);
 
@@ -464,7 +512,7 @@ public class Main {
                                     objusuario = new Usuario();
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID Persona del Usuario");
-                                    objusuario.setId_Persona(scanner.nextInt());
+                                    objusuario.setObjpersona(new Persona(scanner.nextInt(),new Ubicacion(),"","","","",0,""));
                                     System.out.println("Indica el Email de la Usuario");
                                     objusuario.setEmail(scanner.next());
                                     System.out.println("Indica el Nickname del Usuario");
@@ -482,7 +530,7 @@ public class Main {
                                     System.out.println("Indica el ID del Usuario");
                                     objusuario.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Persona del Usuario");
-                                    objusuario.setId_Persona(scanner.nextInt());
+                                    objusuario.setObjpersona(new Persona(scanner.nextInt(),new Ubicacion(),"","","","",0,""));
                                     System.out.println("Indica el Email de la Usuario");
                                     objusuario.setEmail(scanner.next());
                                     System.out.println("Indica el Nickname del Usuario");

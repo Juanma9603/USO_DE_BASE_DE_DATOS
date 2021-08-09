@@ -37,7 +37,7 @@ public class UbicacionDAO {
 
     public void Registrar(Ubicacion objubicacion){
         try {
-            String sql="CALL sp_ubicacion_insert(?,?,?);";
+            String sql="CALL sp_ubicacionINSERT(?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setString(1,objubicacion.getPais());
             ps.setString(2, objubicacion.getRegion());
@@ -50,7 +50,7 @@ public class UbicacionDAO {
 
     public void Modificar(Ubicacion objubicacion){
         try {
-            String sql="CALL sp_ubicacion_update(?,?,?,?);";
+            String sql="CALL sp_ubicacionUPDATE(?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objubicacion.getID());
             ps.setString(2, objubicacion.getPais());
@@ -64,7 +64,7 @@ public class UbicacionDAO {
 
     public void Eliminar(int ID){
         try {
-            String sql="CALL sp_ubicacion_delete(?);";
+            String sql="CALL sp_ubicacionDELETE(?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,ID);
             ps.executeUpdate();
