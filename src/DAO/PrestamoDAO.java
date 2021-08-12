@@ -1,9 +1,6 @@
 package DAO;
 
-import Entity.DetallePrestamo;
-import Entity.Persona;
-import Entity.Prestamo;
-import Entity.Usuario;
+import Entity.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,8 +35,6 @@ public class PrestamoDAO {
 
     public ArrayList<DetallePrestamo> getlistdetallePrestamo(Prestamo objprestamo) throws Exception{
         ArrayList<DetallePrestamo> lisDetallePrestamo =new ArrayList<>();
-        //boolean bandera;
-        //int j=6;
         try {
             String sql="CALL sp_registroPrestamo(?,?,?,?,?,?)";
             PreparedStatement ps =con.getCon().prepareStatement(sql);
@@ -63,6 +58,9 @@ public class PrestamoDAO {
         }
         return lisDetallePrestamo;
     }
+
+
+
 
     public void Modificar(Prestamo objprestamo){
         try {

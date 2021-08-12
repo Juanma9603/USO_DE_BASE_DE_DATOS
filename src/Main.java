@@ -372,9 +372,10 @@ public class Main {
                             System.out.println("Prestamo");
                             System.out.println("1.Consultar Prestamo");
                             System.out.println("2.Registrar Prestamo");
-                            System.out.println("3.Modificar Prestamo");
-                            System.out.println("4.Eliminar Prestamo");
-                            System.out.println("5.Listar Prestamo");
+                            System.out.println("3.Consultar Cabecera");
+                            System.out.println("4.Modificar Prestamo");
+                            System.out.println("5.Eliminar Prestamo");
+                            System.out.println("6.Listar Prestamo");
                             PrestamoDAO =new PrestamoDAO();
                             DetallePrestamoDAO objDetallePrestamoDAO=new DetallePrestamoDAO();
 
@@ -446,12 +447,13 @@ public class Main {
                                     }
                                     objDetalle = new DetallePrestamo();
 
-
-
-
-
                                     break;
                                 case 3:
+                                    System.out.println("Consultar Cabecera de Prestamo");
+                                    System.out.println("Indicar el ID del Prestamo");
+
+                                    break;
+                                case 4:
                                     objprestamo = new Prestamo();
                                     System.out.println("Modificar");
                                     System.out.println("Indica el ID");
@@ -462,7 +464,7 @@ public class Main {
                                     PrestamoDAO.Modificar(objprestamo);
 
                                     break;
-                                case 4:
+                                case 5:
                                     try {
                                         System.out.println("Eliminar");
                                         System.out.println("Indica el ID a eliminar");
@@ -471,7 +473,7 @@ public class Main {
                                         System.out.println("ERROR" + e);
                                     }
                                     break;
-                                case 5:
+                                case 6:
                                     try {
                                         System.out.println("Listar Prestamos");
                                         ArrayList<Prestamo> listprestamo= PrestamoDAO.list();
@@ -500,8 +502,9 @@ public class Main {
                                     try {
                                         System.out.println("Consultar");
                                         System.out.println("Indique el ID del Usuario a Consultar");
-                                        Usuario objUsuarioCon= UsuarioDAO.Consultar(scanner.nextInt());
-                                        System.out.println(objUsuarioCon.toString());
+                                        ArrayList<Usuario> listausuarios=UsuarioDAO.Consultar(scanner.nextInt());
+                                        for (int i=0;i<listausuarios.size();i++)
+                                        System.out.println(listausuarios.get(i).toString());
                                     }catch (Exception e){
                                         System.out.println("ERROR: "+e);
                                     }

@@ -13,20 +13,17 @@ import java.util.ArrayList;
 public class UsuarioDAO {
     Conexion con=new Conexion();
 
-    public Usuario Consultar(int ID)throws Exception{
-        Usuario objusuario=new Usuario();
+    public ArrayList<Usuario> Consultar(int ID)throws Exception{
+        ArrayList<Usuario> list = new ArrayList<>();
         try {
-            String sql="CALL sp_consultarUsuario (?);";
+            String sql="CALL sp_consultarUsuarioRegistrado (?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,ID);
             ResultSet rs= ps.executeQuery();
-            if (rs.next()){
-                objusuario=new Usuario(
-                        rs.getInt("Id_Usuario"),
-                        new Persona(rs.getInt("Id_Persona"),new Ubicacion(),"","","","",0,""),
-                        rs.getString("Email"),
-                        rs.getString("Nickname"),
-                        rs.getString("Contraseña")
+            while (rs.next()) {
+                list.add(new Usuario(rs.getInt(1),
+                        new Persona(0,new Ubicacion(), rs.getString("Firstname"),"","","",0,"" ),
+                        "",rs.getString("Nickname"),"" )
                 );
             }
         }catch (SQLException err) {
@@ -34,7 +31,7 @@ public class UsuarioDAO {
         }finally {
             con.getCon().close();
         }
-        return objusuario;
+        return list;
     }
 
     public void Registrar(Usuario objusuario){
