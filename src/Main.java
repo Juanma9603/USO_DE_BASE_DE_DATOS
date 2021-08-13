@@ -320,13 +320,15 @@ public class Main {
                                     System.out.println("Indica el Ciclo de la Persona");
                                     objpersona.setCiclo(scanner.nextInt());
 
-                                    PersonaDAO.Registrar(objpersona);
+                                    /*PersonaDAO.Registrar(objpersona);*/
+
+                                    Persona objtmppersona= PersonaDAO.Registrar(objpersona);
+                                    System.out.println(objtmppersona.toString());
                                     break;
 
                                 case 3:
                                     objpersona = new Persona();
                                     System.out.println("Registar");
-                                    objpersona.setID(scanner.nextInt());
                                     System.out.println("Indica el ID de la Persona");
                                     objpersona.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Ubicacion de la Persona");

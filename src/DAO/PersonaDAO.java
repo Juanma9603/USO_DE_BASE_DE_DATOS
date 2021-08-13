@@ -37,7 +37,11 @@ public class PersonaDAO {
         }
         return objpersona;
     }
-    public void Registrar(Persona objpersona){
+
+
+
+    public Persona Registrar(Persona objpersona){
+        Persona objtmppersona=new Persona();
         try {
             String sql="CALL sp_personaINSERT (?,?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
@@ -47,10 +51,18 @@ public class PersonaDAO {
             ps.setString(4,objpersona.getBirthday());
             ps.setString(5,objpersona.getCarrera());
             ps.setInt(6, objpersona.getCiclo());
-            ps.execute();
-        }catch (SQLException e){
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                objtmppersona =new Persona(
+                        rs.getInt("Id_Persona"),new Ubicacion(),"","","","",0,""
+                );
+            }
+            }catch (SQLException e){
             System.out.println("SQL ERROR"+e);
         }
+        return objtmppersona;
+
+
     }
 
     public void Modificar(Persona objpersona){
