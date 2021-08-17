@@ -36,12 +36,17 @@ public class UsuarioDAO {
 
     public void Registrar(Usuario objusuario){
         try {
-            String sql="CALL sp_usuarioINSERT (?,?,?,?);";
+            String sql="CALL sp_registrarPersonaUsuario (?,?,?,?,?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
-            ps.setInt(1,objusuario.getobjpersona().getID());
-            ps.setString(2,objusuario.getEmail());
-            ps.setString(3, objusuario.getNickname());
-            ps.setString(4, objusuario.getContraseña());
+            ps.setInt(1,objusuario.getobjpersona().getobjubicacion().getID());
+            ps.setString(2,objusuario.getobjpersona().getFirstname());
+            ps.setString(3,objusuario.getobjpersona().getLastname());
+            ps.setString(4,objusuario.getobjpersona().getBirthday());
+            ps.setString(5,objusuario.getobjpersona().getCarrera());
+            ps.setInt(6,objusuario.getobjpersona().getCiclo());
+            ps.setString(7,objusuario.getEmail());
+            ps.setString(8, objusuario.getNickname());
+            ps.setString(9, objusuario.getContraseña());
             ps.execute();
         }catch (SQLException e){
             System.out.println("SQL ERROR"+e);

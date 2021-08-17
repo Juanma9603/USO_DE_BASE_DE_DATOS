@@ -43,7 +43,7 @@ public class PersonaDAO {
     public Persona Registrar(Persona objpersona){
         Persona objtmppersona=new Persona();
         try {
-            String sql="CALL sp_personaINSERT (?,?,?,?,?,?);";
+            String sql="CALL sp_registrar (?,?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objpersona.getobjubicacion().getID());
             ps.setString(2,objpersona.getFirstname());

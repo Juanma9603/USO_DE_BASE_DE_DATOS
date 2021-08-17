@@ -2,6 +2,7 @@ import DAO.*;
 import Entity.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -221,7 +222,7 @@ public class Main {
                                     objlibro = new Libro();
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID Categoria del Libro");
-                                    objlibro.setObjcategoria(new Categoria(scanner.nextInt(),"",""));
+                                    objlibro.getobjcategoria().setID(scanner.nextInt());
                                     System.out.println("Indica el Titulo del Libro");
                                     objlibro.setTitle(scanner.next());
                                     System.out.println("Indica el Autor del Libro");
@@ -242,7 +243,7 @@ public class Main {
                                     System.out.println("Indica el ID");
                                     objlibro.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Categoria del Libro");
-                                    objlibro.setObjcategoria(new Categoria(scanner.nextInt(),"",""));
+                                    objlibro.getobjcategoria().setID(scanner.nextInt());
                                     System.out.println("Indica el Titulo del Libro");
                                     objlibro.setTitle(scanner.next());
                                     System.out.println("Indica el Autor del Libro");
@@ -308,7 +309,7 @@ public class Main {
                                     objpersona = new Persona();
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID Ubicacion de la Persona");
-                                    objpersona.setObjubicacion(new Ubicacion(scanner.nextInt(),"","",""));
+                                    objpersona.getobjubicacion().setID(scanner.nextInt());
                                     System.out.println("Indica el Nombre de la Persona");
                                     objpersona.setFirstname(scanner.next());
                                     System.out.println("Indica el Apellido de la Persona");
@@ -332,7 +333,7 @@ public class Main {
                                     System.out.println("Indica el ID de la Persona");
                                     objpersona.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Ubicacion de la Persona");
-                                    objpersona.setObjubicacion(new Ubicacion(scanner.nextInt(),"","",""));
+                                    objpersona.getobjubicacion().setID(scanner.nextInt());
                                     System.out.println("Indica el Nombre de la Persona");
                                     objpersona.setFirstname(scanner.next());
                                     System.out.println("Indica el Apellido de la Persona");
@@ -461,7 +462,7 @@ public class Main {
                                     System.out.println("Indica el ID");
                                     objprestamo.setID(scanner.nextInt());
                                     System.out.println("Indica el ID del Usuario");
-                                    objprestamo.setObjusuario(new Usuario(scanner.nextInt(),new Persona(),"","",""));
+                                    objprestamo.getobjusuario().setID(scanner.nextInt());
 
                                     PrestamoDAO.Modificar(objprestamo);
 
@@ -497,6 +498,8 @@ public class Main {
                             System.out.println("5.Listar Usuarios");
                             UsuarioDAO =new UsuarioDAO();
 
+
+
                             int option7 = scanner.nextInt();
 
                             switch (option7) {
@@ -515,9 +518,19 @@ public class Main {
 
                                 case 2:
                                     objusuario = new Usuario();
-                                    System.out.println("Registar");
-                                    System.out.println("Indica el ID Persona del Usuario");
-                                    objusuario.setObjpersona(new Persona(scanner.nextInt(),new Ubicacion(),"","","","",0,""));
+                                    System.out.println("Crear Usuario");
+                                    System.out.println("Indica el ID de Ubicacion");
+                                    objusuario.getobjpersona().getobjubicacion().setID(scanner.nextInt());
+                                    System.out.println("Indica el Nombre");
+                                    objusuario.getobjpersona().setFirstname(scanner.next());
+                                    System.out.println("Indica el Apellido");
+                                    objusuario.getobjpersona().setLastname(scanner.next());
+                                    System.out.println("Indica su Fecha de Nacimiento '1999-01-01'");
+                                    objusuario.getobjpersona().setBirthday(scanner.next());
+                                    System.out.println("Indica la Carrera");
+                                    objusuario.getobjpersona().setCarrera(scanner.next());
+                                    System.out.println("Indica el Ciclo");
+                                    objusuario.getobjpersona().setCiclo(scanner.nextInt());
                                     System.out.println("Indica el Email de la Usuario");
                                     objusuario.setEmail(scanner.next());
                                     System.out.println("Indica el Nickname del Usuario");
@@ -535,7 +548,7 @@ public class Main {
                                     System.out.println("Indica el ID del Usuario");
                                     objusuario.setID(scanner.nextInt());
                                     System.out.println("Indica el ID Persona del Usuario");
-                                    objusuario.setObjpersona(new Persona(scanner.nextInt(),new Ubicacion(),"","","","",0,""));
+                                    objusuario.getobjpersona().setID(scanner.nextInt());
                                     System.out.println("Indica el Email de la Usuario");
                                     objusuario.setEmail(scanner.next());
                                     System.out.println("Indica el Nickname del Usuario");
