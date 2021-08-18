@@ -547,8 +547,6 @@ public class Main {
                                     System.out.println("Registar");
                                     System.out.println("Indica el ID del Usuario");
                                     objusuario.setID(scanner.nextInt());
-                                    System.out.println("Indica el ID Persona del Usuario");
-                                    objusuario.getobjpersona().setID(scanner.nextInt());
                                     System.out.println("Indica el Email de la Usuario");
                                     objusuario.setEmail(scanner.next());
                                     System.out.println("Indica el Nickname del Usuario");

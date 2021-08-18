@@ -58,10 +58,9 @@ public class UsuarioDAO {
             String sql="CALL sp_usuarioUPDATE (?,?,?,?,?);";
             PreparedStatement ps=con.getCon().prepareStatement(sql);
             ps.setInt(1,objusuario.getID());
-            ps.setInt(2, objusuario.getobjpersona().getID());
-            ps.setString(3, objusuario.getEmail());
-            ps.setString(4, objusuario.getNickname());
-            ps.setString(5, objusuario.getContraseña());
+            ps.setString(2, objusuario.getEmail());
+            ps.setString(3, objusuario.getNickname());
+            ps.setString(4, objusuario.getContraseña());
             ps.executeUpdate();
         }catch (SQLException e){
             System.out.println("SQL ERROR"+e);
